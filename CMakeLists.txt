@@ -42,15 +42,15 @@ set(MINHOOK_VERSION ${MINHOOK_MAJOR_VERSION}.${MINHOOK_MINOR_VERSION}.${MINHOOK_
 option(BUILD_SHARED_LIBS "build shared version" OFF)
 
 set(SOURCES_MINHOOK 
-  "src/buffer.c"
-  "src/hook.c"
-  "src/trampoline.c"
+  "src/minhook/buffer.c"
+  "src/minhook/hook.c"
+  "src/minhook/trampoline.c"
 )
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-  set(SOURCES_HDE "src/hde/hde64.c")
+  set(SOURCES_HDE "src/minhook/hde/hde64.c")
 else()
-  set(SOURCES_HDE "src/hde/hde32.c")
+  set(SOURCES_HDE "src/minhook/hde/hde32.c")
 endif()
 
 if(BUILD_SHARED_LIBS)
@@ -63,7 +63,7 @@ endif()
 add_library(minhook ${SOURCES_MINHOOK} ${SOURCES_HDE} ${RESOURCES})
 
 target_include_directories(minhook PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/minhook>
   $<INSTALL_INTERFACE:include>
 )
 
